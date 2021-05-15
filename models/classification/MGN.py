@@ -235,11 +235,16 @@ def add_attribute(cls):
 
 def MGN_v1(n_classes=1000, pretrained=False, **kwargs):
     model = MGN()
-    model = add_attribute(model)
+    model.pretrained_source = "Keras"
+    model.channels = "RGB"
+    model.image_shape = (299, 299)
+    model.mean = torch.tensor([127.5, 127.5, 127.5])
+    model.std = torch.tensor([255.0, 255.0, 255.0])
+    #
     if pretrained:
         state_dict = model_zoo.load_keras_xceptionv1(model_torch=model)
         model.load_state_dict(state_dict)
-        
+        model = add_attribute(model)
     return model
 
 
