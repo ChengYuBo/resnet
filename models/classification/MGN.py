@@ -235,10 +235,11 @@ def add_attribute(cls):
 
 def MGN_v1(n_classes=1000, pretrained=False, **kwargs):
     model = MGN()
+    model = add_attribute(model)
     if pretrained:
         state_dict = model_zoo.load_keras_xceptionv1(model_torch=model)
         model.load_state_dict(state_dict)
-        model = add_attribute(model)
+        
     return model
 
 
